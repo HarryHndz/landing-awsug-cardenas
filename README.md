@@ -1,75 +1,47 @@
-# React + TypeScript + Vite
+# AWS User Group Cárdenas — Sitio web
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Landing page de la comunidad **AWS User Group Cárdenas**, un espacio para aprender, colaborar y crecer en torno a **Amazon Web Services** en Tabasco y la región. El diseño refleja la identidad del grupo: nube y tecnología unidas a la herencia local (cacao y caña de azúcar), con una estética oscura, morado vibrante y tipografía clara.
 
-Currently, two official plugins are available:
+<p align="center">
+  <img src="public/aws.cardenas-logo.png" alt="Logo AWS User Group Cárdenas — hexágono con nube, cacao y caña" width="200" />
+</p>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+<p align="center">
+  <img src="public/banner-aws-user-group.png" alt="Banner AWS User Group Cárdenas" width="640" />
+</p>
 
-## React Compiler
+## Contenido del proyecto
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+- Presentación de la comunidad y propósito.
+- Destacado del **evento inaugural** y enlaces a [Meetup](https://www.meetup.com/aws-ug-cardenas/).
+- Sección de eventos pasados (lista editable en código).
+- Perfiles de organizadores y llamados a unirse (Meetup e Instagram).
 
-Note: This will impact Vite dev & build performances.
+## Stack
 
-## Expanding the ESLint configuration
+- [Vite](https://vitejs.dev/) + [React 19](https://react.dev/) + TypeScript
+- Estilos en CSS (variables de marca, sin framework de UI)
+- Iconos con [Lucide React](https://lucide.dev/) y SVG propios donde aplica
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Requisitos
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- Node.js 20+ recomendado
+- npm
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Scripts
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install    # Dependencias
+npm run dev    # Servidor de desarrollo
+npm run build  # Compilación de producción (salida en dist/)
+npm run preview # Vista previa del build
+npm run lint    # ESLint
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Datos editables
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Textos enlaces, evento próximo, eventos pasados y organizadores viven en `src/data/site.ts`. Las imágenes públicas están en la carpeta `public/`.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Licencia y marcas
+
+La comunidad es independiente. **AWS** y **Amazon Web Services** son marcas de Amazon.com, Inc.

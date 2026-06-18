@@ -1,32 +1,51 @@
-import { CalendarRange } from 'lucide-react'
-import {
-  pastEvents as pastEventsList,
-  type PastEvent as PastEventType,
-} from '../data/site'
+import { CalendarRange, MapPin } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { getEventos, type Evento } from '../lib/api'
 
-function PastEventCard({ event }: { event: PastEventType }) {
+const fechaLarga = new Intl.DateTimeFormat('es-MX', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+})
+
+function formatFecha(fecha: string) {
+  const d = new Date(fecha)
+  return isNaN(d.getTime()) ? fecha : fechaLarga.format(d)
+}
+
+function PastEventCard({ event }: { event: Evento }) {
+  const [imgError, setImgError] = useState(false)
+  const showImg = Boolean(event.imagen) && !imgError
+
   return (
     <li className="past-card">
-      {event.imageSrc ? (
+      {showImg ? (
         <img
           className="past-card__img"
-          src={event.imageSrc}
+          src={event.imagen}
           alt=""
           width={400}
           height={240}
           loading="lazy"
+          onError={() => setImgError(true)}
         />
       ) : (
         <div className="past-card__placeholder" aria-hidden />
       )}
       <div className="past-card__body">
-        <span className="past-card__date">{event.dateLabel}</span>
-        <h4>{event.title}</h4>
-        {event.summary ? <p>{event.summary}</p> : null}
-        {event.href ? (
-          <a className="past-card__link" href={event.href} target="_blank" rel="noreferrer">
-            Ver detalles
-          </a>
+        <div className="past-card__meta">
+          <span className="past-card__date">{formatFecha(event.fecha)}</span>
+          <span className={`past-card__tag past-card__tag--${event.tipo}`}>
+            {event.tipo === 'virtual' ? 'Virtual' : 'Presencial'}
+          </span>
+        </div>
+        <h4>{event.titulo}</h4>
+        {event.descripcion ? <p>{event.descripcion}</p> : null}
+        {event.lugar ? (
+          <p className="past-card__place">
+            <MapPin size={16} aria-hidden strokeWidth={2} />
+            <span>{event.lugar}</span>
+          </p>
         ) : null}
       </div>
     </li>
@@ -34,7 +53,33 @@ function PastEventCard({ event }: { event: PastEventType }) {
 }
 
 export function PastEvents() {
-  const hasPast = pastEventsList.length > 0
+  const [eventos, setEventos] = useState<Evento[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    let activo = true
+
+    async function cargar() {
+      setLoading(true)
+      setError(null)
+      try {
+        const data = await getEventos()
+        if (activo) setEventos(data)
+      } catch (err) {
+        if (activo) setError(err instanceof Error ? err.message : 'Error desconocido')
+      } finally {
+        if (activo) setLoading(false)
+      }
+    }
+
+    cargar()
+    return () => {
+      activo = false
+    }
+  }, [])
+
+  const hasPast = eventos.length > 0
 
   return (
     <section
@@ -57,7 +102,16 @@ export function PastEvents() {
           </div>
         </div>
 
-        {!hasPast ? (
+        {loading ? (
+          <p className="events-status" role="status">
+            Cargando eventos…
+          </p>
+        ) : error ? (
+          <div className="events-status events-status--error" role="alert">
+            <p>No se pudieron cargar los eventos.</p>
+            <p className="events-status__detail">{error}</p>
+          </div>
+        ) : !hasPast ? (
           <div className="empty-state">
             <p className="empty-state__title">Todavía no hay historia que contar...</p>
             <p className="empty-state__body">
@@ -68,7 +122,7 @@ export function PastEvents() {
           </div>
         ) : (
           <ul className="past-grid">
-            {pastEventsList.map((e) => (
+            {eventos.map((e) => (
               <PastEventCard key={e.id} event={e} />
             ))}
           </ul>

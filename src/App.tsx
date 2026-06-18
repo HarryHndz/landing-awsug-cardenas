@@ -1,25 +1,18 @@
 import './App.css'
-import { Hero } from './components/Hero'
-import { Join } from './components/Join'
-import { Footer } from './components/Footer'
-import { PastEvents } from './components/PastEvents'
-import { Organizers } from './components/Organizers'
-import { NextEvent } from './components/NextEvent'
-import { About } from './components/About'
+import { Routes, Route } from 'react-router-dom'
 import { Nav } from './components/Nav'
+import { Footer } from './components/Footer'
+import { Home } from './pages/Home'
+import { AddEvent } from './pages/AddEvent'
 
 function App() {
   return (
     <div className="page grain">
       <Nav />
-      <main>
-        <Hero />
-        <About />
-        <NextEvent />
-        <PastEvents />
-        <Organizers />
-        <Join />
-      </main>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/agregar-evento" element={<AddEvent />} />
+      </Routes>
       <Footer />
     </div>
   )

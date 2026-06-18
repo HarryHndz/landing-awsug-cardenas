@@ -6,24 +6,29 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "build:lambda": "tsc -p tsconfig.lambda.json && node -e \"require('fs').renameSync('dist-lambda/index.js','dist-lambda/index.mjs')\"",
+    "package:lambda": "npm run build:lambda && cd dist-lambda && bestzip ../lambda.zip * && cd .. && node -e \"require('fs').rmSync('dist-lambda',{recursive:true,force:true})\"",
     "lint": "eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
     "lucide-react": "^1.14.0",
     "react": "^19.2.5",
-    "react-dom": "^19.2.5"
+    "react-dom": "^19.2.5",
+    "react-router-dom": "^7.18.0"
   },
   "devDependencies": {
     "@babel/core": "^7.29.0",
     "@eslint/js": "^10.0.1",
     "@rolldown/plugin-babel": "^0.2.3",
+    "@types/aws-lambda": "^8.10.162",
     "@types/babel__core": "^7.20.5",
     "@types/node": "^24.12.2",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.1",
     "babel-plugin-react-compiler": "^1.0.0",
+    "bestzip": "^3.0.1",
     "eslint": "^10.2.1",
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.2",

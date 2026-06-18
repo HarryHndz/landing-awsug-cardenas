@@ -1,12 +1,13 @@
 import { Menu, X } from 'lucide-react'
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { community } from '../data/site'
 
 const links = [
-  { href: '#comunidad', label: 'Comunidad' },
-  { href: '#eventos', label: 'Eventos' },
-  { href: '#lideres', label: 'Líderes' },
-  { href: '#unete', label: 'Únete' },
+  { href: '/#comunidad', label: 'Comunidad' },
+  { href: '/#eventos', label: 'Eventos' },
+  { href: '/#lideres', label: 'Líderes' },
+  { href: '/#unete', label: 'Únete' },
 ] as const
 
 export function Nav() {
@@ -33,7 +34,7 @@ export function Nav() {
         className={`site-header ${scrolled ? 'site-header--scrolled' : ''}`}
       >
         <div className="site-header__inner">
-          <a className="site-header__brand" href="#top">
+          <Link className="site-header__brand" to="/">
             <img
               className="site-header__logo"
               src="/aws.cardenas-logo.png"
@@ -42,7 +43,7 @@ export function Nav() {
               alt=""
             />
             <span className="site-header__wordmark">{community.displayName}</span>
-          </a>
+          </Link>
           <div className="site-header__actions">
             <nav className="site-nav" aria-label="Secciones">
               <button
@@ -70,6 +71,15 @@ export function Nav() {
                     </a>
                   </li>
                 ))}
+                <li>
+                  <Link
+                    to="/agregar-evento"
+                    className="site-nav__link site-nav__link--cta"
+                    onClick={() => setOpen(false)}
+                  >
+                    Agregar evento
+                  </Link>
+                </li>
               </ul>
             </nav>
 

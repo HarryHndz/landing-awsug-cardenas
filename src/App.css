@@ -1191,3 +1191,211 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* --- Estado de carga / error de eventos --- */
+.events-status {
+  margin: 2rem 0 0;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+}
+
+.events-status--error {
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 120, 120, 0.35);
+  background: rgba(255, 80, 80, 0.08);
+  padding: 1.25rem 1.4rem;
+  color: #ffd2d2;
+}
+
+.events-status__detail {
+  margin: 0.4rem 0 0;
+  color: rgba(255, 210, 210, 0.7);
+  font-size: 0.85rem;
+}
+
+/* --- Past card: meta (fecha + tipo) y lugar --- */
+.past-card__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.past-card__tag {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+
+.past-card__tag--virtual {
+  color: var(--purple);
+  background: var(--purple-soft);
+  border-color: rgba(166, 120, 255, 0.35);
+}
+
+.past-card__tag--presencial {
+  color: var(--cocoa);
+  background: rgba(224, 185, 122, 0.12);
+  border-color: rgba(224, 185, 122, 0.35);
+}
+
+.past-card__place {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.past-card__place svg {
+  color: var(--cocoa);
+  flex-shrink: 0;
+}
+
+/* --- Formulario "Agregar evento" --- */
+.section-inner--narrow {
+  width: min(680px, calc(100% - 32px));
+}
+
+.add-event h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 2.7rem);
+  margin: 0 0 0.5rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-top: 1.5rem;
+}
+
+.form__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+
+.form__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.form__field label {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--cocoa);
+}
+
+.form__field input,
+.form__field select,
+.form__field textarea {
+  width: 100%;
+  padding: 0.7rem 0.85rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 0.98rem;
+  transition: border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.form__field textarea {
+  resize: vertical;
+  min-height: 96px;
+}
+
+.form__field input:focus,
+.form__field select:focus,
+.form__field textarea:focus {
+  outline: none;
+  border-color: var(--purple);
+  box-shadow: 0 0 0 3px var(--purple-soft);
+}
+
+.form__field input::placeholder,
+.form__field textarea::placeholder {
+  color: rgba(156, 163, 181, 0.6);
+}
+
+.form__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  margin-top: 0.5rem;
+}
+
+.btn[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.form-error {
+  margin: 0;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 120, 120, 0.35);
+  background: rgba(255, 80, 80, 0.08);
+  color: #ffd2d2;
+  font-size: 0.92rem;
+}
+
+.form-success {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+  padding: 1.25rem 1.4rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(120, 220, 150, 0.35);
+  background: rgba(80, 200, 120, 0.08);
+}
+
+.form-success svg {
+  color: #7ee2a0;
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+}
+
+.form-success__title {
+  margin: 0 0 0.25rem;
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+}
+
+.form-success__body {
+  margin: 0;
+  color: var(--text-muted);
+}
+
+.link-button {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: var(--purple);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.site-nav__link--cta {
+  color: var(--cocoa);
+}
+
+@media (max-width: 560px) {
+  .form__grid {
+    grid-template-columns: 1fr;
+  }
+}

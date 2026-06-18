@@ -1,13 +1,3 @@
-export type PastEvent = {
-  id: string
-  title: string
-  /** Fecha corta visible, ej. "Ene 2026" */
-  dateLabel: string
-  summary?: string
-  href?: string
-  imageSrc?: string
-}
-
 export type Organizer = {
   name: string
   role: string
@@ -43,9 +33,6 @@ export const upcomingEvent = {
 
 export const aboutCopy =
   'Somos una comunidad de tecnología enfocada en el aprendizaje, la colaboración y el crecimiento profesional en torno a Amazon Web Services (AWS). Nuestro objetivo es crear un espacio donde estudiantes, desarrolladores, profesionales y amantes de la tecnología puedan aprender sobre cloud computing o fortalecer sus conocimientos a través de charlas, talleres prácticos y networking.'
-
-/** Listo para añadir charlas cuando ocurran; vacío muestra estado “próximo” en UI */
-export const pastEvents: PastEvent[] = []
 
 export const organizers: Organizer[] = [
   {

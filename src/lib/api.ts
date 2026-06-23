@@ -1,62 +1,40 @@
-// ─────────────────────────────────────────────────────────────────
-// Cliente HTTP de la API de eventos (API Gateway + Lambda)
-// La URL base se configura en .env → VITE_API_URL
-// ─────────────────────────────────────────────────────────────────
-
-const API_URL = import.meta.env.VITE_API_URL ?? ''
-
 export type TipoEvento = 'virtual' | 'presencial'
 
 export type Evento = {
   id: number
   titulo: string
   descripcion: string
-  fecha: string 
+  fecha: string
   tipo: TipoEvento
   lugar: string
   imagen: string
   createdAt: string
 }
 
-/** Campos que el formulario envía al crear un evento (sin id ni createdAt). */
-export type EventoInput = Omit<Evento, 'id' | 'createdAt'>
+export const eventos: Evento[] = [
+  {
+    id: 1,
+    titulo: "Introducción a AWS + Despliegue en S3",
+    descripcion: "Primer evento de la comunidad. Conceptos básicos de AWS y despliegue de un sitio estático.",
+    fecha: "2026-04-20",
+    tipo: "presencial",
+    lugar: "Villahermosa, Tabasco",
+    imagen: "Slides-platica1.png",
+    createdAt: "2026-04-01T10:00:00.000Z",
+  },
+  {
+    id: 2,
+    titulo: "Arquitecturas Serverless con API Gateway + Lambda",
+    descripcion: "Construye una API REST sin servidores. Demo en vivo con Node.js.",
+    fecha: "2026-06-25",
+    tipo: "virtual",
+    lugar: "Online (Zoom)",
+    imagen: "slidecharla2.png",
+    createdAt: "2026-06-01T10:00:00.000Z",
+  },
+]
 
-function ensureConfigured() {
-  if (!API_URL) {
-    throw new Error(
-      'Falta configurar VITE_API_URL en el archivo .env (URL invoke de API Gateway).',
-    )
-  }
-}
-
-/** GET /events → lista de eventos. */
+/** GET /events → lista de eventos estáticos. */
 export async function getEventos(): Promise<Evento[]> {
-  ensureConfigured()
-  const res = await fetch(`${API_URL}/events`)
-  if (!res.ok) {
-    throw new Error(`No se pudieron cargar los eventos (HTTP ${res.status}).`)
-  }
-  const data = (await res.json()) as { total: number; eventos: Evento[] }
-  return data.eventos ?? []
-}
-
-/** POST /events → crea un evento y devuelve el creado. */
-export async function createEvento(input: EventoInput): Promise<Evento> {
-  ensureConfigured()
-  const res = await fetch(`${API_URL}/events`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(input),
-  })
-  const data = (await res.json().catch(() => null)) as
-    | { evento?: Evento; error?: string }
-    | null
-
-  if (!res.ok) {
-    throw new Error(data?.error ?? `No se pudo crear el evento (HTTP ${res.status}).`)
-  }
-  if (!data?.evento) {
-    throw new Error('La API no devolvió el evento creado.')
-  }
-  return data.evento
+  return eventos
 }

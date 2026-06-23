@@ -71,15 +71,6 @@ export function Nav() {
                     </a>
                   </li>
                 ))}
-                <li>
-                  <Link
-                    to="/agregar-evento"
-                    className="site-nav__link site-nav__link--cta"
-                    onClick={() => setOpen(false)}
-                  >
-                    Agregar evento
-                  </Link>
-                </li>
               </ul>
             </nav>
 
